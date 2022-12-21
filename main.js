@@ -8,11 +8,22 @@
 //유저가 1~100 범위 밖에 숫자를 입력하면 알려준다 기회를 깍지않는다
 //유저가 이미 입력한 숫자를 입력하면 알려준다 기회를 깍지 않는다
 
-let computerNum = 0
+let computerNum = 0;
+let playbutton = document.getElementById("play-button");
+let userinput = document.getElementById("user-input")
 
-function pickRandomNum (){
-computerNum = Math.random()
-console.log("정답",computerNum)
+
+playbutton.addEventListener("click",play);
+
+
+function pickRandomNum (min, max){
+computerNum = Math.floor(Math.random()*(max-min+1))+min;
+console.log("정답",computerNum);
 }
 
-pickRandomNum()
+function play(){
+let userValue = userinput.value
+console.log(userValue)
+}
+
+pickRandomNum(1,50);
