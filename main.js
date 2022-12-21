@@ -10,10 +10,10 @@
 
 let computerNum = 0;
 let playbutton = document.getElementById("play-button");
-let userinput = document.getElementById("user-input")
+let userinput = document.getElementById("user-input");
+let resultarea = document.getElementById("result-area");
+let userValue
 
-
-playbutton.addEventListener("click",play);
 
 
 function pickRandomNum (min, max){
@@ -21,9 +21,24 @@ computerNum = Math.floor(Math.random()*(max-min+1))+min;
 console.log("정답",computerNum);
 }
 
+pickRandomNum(1,50);
+
+
+
+playbutton.addEventListener("click",play);
+
 function play(){
-let userValue = userinput.value
-console.log(userValue)
+userValue = userinput.value;
+if(userValue<computerNum){
+    resultarea.textContent="UP!!!"
+    console.log("UP!!!")
+}else if(userValue>computerNum){
+    resultarea.textContent="DOWN!!!"
+    console.log("DOWN!!!")
+}else{
+    resultarea.textContent="OK!!!"
+    console.log("OK!!!")
+}
+//console.log(userValue);
 }
 
-pickRandomNum(1,50);
