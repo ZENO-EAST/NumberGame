@@ -12,8 +12,11 @@ let computerNum = 0;
 let playbutton = document.getElementById("play-button");
 let userinput = document.getElementById("user-input");
 let resultarea = document.getElementById("result-area");
-let userValue
-
+let chancearea = document.getElementById("chance-area");
+let history = []
+let resetbutton = document.getElementById("reset-button");
+let chances = 5;
+let gameover = false;
 
 
 function pickRandomNum (min, max){
@@ -26,19 +29,79 @@ pickRandomNum(1,50);
 
 
 playbutton.addEventListener("click",play);
+resetbutton.addEventListener("click",reset);
+userinput.addEventListener("focus",function(){userinput.value=""})
+
+
+
+
 
 function play(){
-userValue = userinput.value;
-if(userValue<computerNum){
-    resultarea.textContent="UP!!!"
-    console.log("UP!!!")
-}else if(userValue>computerNum){
-    resultarea.textContent="DOWN!!!"
-    console.log("DOWN!!!")
-}else{
-    resultarea.textContent="OK!!!"
-    console.log("OK!!!")
-}
-//console.log(userValue);
+  let  userValue = userinput.value;
+
+
+
+
+if(userValue<1){
+    resultarea.textContent="1보다 큰 값을 입력해 주세요!!!";
+    return;
 }
 
+if(userValue>50){
+    resultarea.textContent="50보다 작은 값을 입력해 주세요!!!";
+    return;
+}
+
+if(history.includes(userValue)){
+    resultarea.textContent="기존에 입력했던 값과 다른값을 입력해 주세요!!!";
+return;
+}
+
+if(userValue<computerNum){
+    resultarea.textContent="UP!!!";
+    console.log("UP!!!");
+}else if(userValue>computerNum){
+    resultarea.textContent="DOWN!!!";
+    console.log("DOWN!!!");
+}else{
+    resultarea.textContent="OK!!!";
+    console.log("OK!!!")
+}
+
+
+history.push(userValue)
+
+
+
+chances -- ;
+//console.log("chance",chances);
+
+if(chances<6){
+    chancearea.textContent=`남은기회 : ${chances} 번`;
+    }
+
+if(chances<1){
+    gameover=true;
+    chancearea.textContent="GAME OVERㅜㅜ";
+    }
+
+if (gameover==true)
+playbutton.disabled=true;
+
+if (computerNum=userValue)
+playbutton.disabled=true;
+
+}
+
+
+
+
+function reset(){
+//user input창이 깨끗하게 정리되고
+userinput.value="";
+//새로운 번호가 생성되고
+pickRandomNum(1,50);
+//결과값이 나옵니다
+resultarea.textContent="리셋되었습니다";
+chancearea.textContent=chances;
+}
